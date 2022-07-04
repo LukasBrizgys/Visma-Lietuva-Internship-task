@@ -1,0 +1,74 @@
+<html>
+	<head>
+		<title>Naujas susitikimas</title>
+		<meta charset="utf-8">
+		<link type="text/css" rel="stylesheet" href="./css/main.css">
+	</head>
+	<body>
+		<div th:insert="fragments/navigation.html :: nav"></div>
+		<div class="new-meeting-container">
+			<form id="new-meeting-form" action="/" th:onSubmit="handleSubmit()" method="POST" th:object="${meeting}">
+				<input type="hidden" class="new-meeting-input hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+				<div class="new-meeting-input-container">
+					<label for="meeting-name">Susitikimo pavadinimas</label>
+					<input class="new-meeting-input" id="meeting-name" type="text" name="name" th:value="*{name}">
+				</div>
+				<div class="new-meeting-input-container">
+					<label for="meeting-description">Susitikimo aprašymas</label>
+					<input class="new-meeting-input" id="meeting-description" type="text" name="description" th:value="*{description}">
+				</div>
+				<div class="new-meeting-select-container">
+					<label for="meeting-responsible">Atsakingas asmuo</label>
+					<select class="new-meeting-input" id="meeting-responsible" name="responsibleID">
+						<option th:each="person : ${persons}" th:value="${person.id}" th:text="${person.name} + ' ' + ${person.surname}">
+					</select>
+				</div>
+				<div class="new-meeting-select-container">
+					<label for="meeting-category">Susitikimo kategorija</label>
+					<select class="new-meeting-input" id="meeting-category" name="categoryID">
+						<option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}">
+					</select>
+				</div>
+				<div class="new-meeting-select-container">
+					<label for="meeting-type">Susitikimo tipas</label>
+					<select class="new-meeting-input" id="meeting-type" name="typeID">
+						<option th:each="type : ${types}" th:value="${type.id}" th:text="${type.name}">
+					</select>
+				</div>
+				<div class="new-meeting-input-container">
+					<label for="meeting-start-date">Susitikimo pradžia</label>
+					<input class="new-meeting-input" placeholder="YYYY-MM-dd" type="text" th:value="*{startDate}" id="meeting-start-date" name="startDate">
+				</div>
+				<div class="new-meeting-input-container">
+					<label for="meeting-end-date">Susitikimo pabaiga</label>
+					<input class="new-meeting-input" placeholder="YYYY-MM-dd" th:value="*{endDate}" type="text" id="meeting-end-date" name="endDate">
+				</div>
+				<button class="submit-new-meeting" type="submit">Pridėti</button>
+			</form>
+		</div>
+		<script type="text/javascript">
+			const handleSubmit = async () => {
+				event.preventDefault();
+				try{
+					const form = document.getElementById('new-meeting-form');
+				const formData = new FormData();
+				const inputElements = await document.querySelectorAll('.new-meeting-input');
+				[...inputElements].forEach((element) => {
+					formData.append(element.name, element.value);
+				})
+				const response = await fetch('/api/newMeeting',{
+					method: 'POST',
+					body: formData
+				})
+				const data = await response.json();
+				if(response.status === 200) history.back();
+				console.log(data);
+				}catch(error){
+					console.log(error);
+				}
+				
+				
+			}
+		</script>
+	</body>
+</html>

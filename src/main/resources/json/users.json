@@ -1,0 +1,13 @@
+[ {
+  "id" : "1a3fab60-ba56-4d06-8ae1-bff389c85be8",
+  "name" : "Petras",
+  "surname" : "Petras",
+  "email" : "Petras@gmail.com",
+  "password" : "$2a$10$dEYoFYVgVgFWJ5TIs4ohYu0Hip09B.8rodbpsjxtLuRJGS/4Mtsma"
+}, {
+  "id" : "dcd66271-93b6-455e-bd5b-dc4bcb742ebd",
+  "name" : "Jonas",
+  "surname" : "Jonas",
+  "email" : "Jonas@gmail.com",
+  "password" : "$2a$10$DFQdqB4hCB5nZ.mjlpBRkuWy.PFTA.WTbqgQpLcyUJUa6XVemfsXS"
+} ]

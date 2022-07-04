@@ -1,0 +1,53 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Susitikimo dalyviai</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link type="text/css" rel="stylesheet" href="/css/main.css">
+		<meta th:name="_csrf" th:content="${_csrf.token}"/>
+		<meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+	</head>
+	<body>
+		<div th:insert="fragments/navigation.html :: nav"></div>
+		<table class="attendee-list">
+			<thead>
+				<tr>
+					<th>Dalyvio vardas</th>
+					<th>Dalyvio pavardė</th>
+					<th>Dalyvio el. paštas</th>
+					<th>Veiksmai</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="attendee : ${attendees}">
+					<td th:text="${attendee.name}"></td>
+					<td th:text="${attendee.surname}"></td>
+					<td th:text="${attendee.email}"></td>
+					<td>
+						<button th:onclick='deleteAttendee([[${attendee.id}]], [[${meetingID}]])'>Ištrinti</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<script>
+			const deleteAttendee = async(attendeeID, meetingID) => {
+				const elementToken = document.querySelector('meta[name="_csrf"]');
+				const token = elementToken && elementToken.getAttribute("content");
+				const elementHeader = document.querySelector('meta[name="_csrf_header"]');
+				const header = elementHeader && elementHeader.getAttribute("content");
+				
+				try{
+					const headers = new Headers();
+					headers.append(header, token);
+					const response = await fetch(`/api/deleteMeetingAttendee/${attendeeID}/${meetingID}`,{
+						method:'DELETE',
+						headers: headers
+					})
+					if(response.status === 200) location.reload();
+				}catch(error){
+					console.log(error);
+				}
+			} 
+		</script>
+	</body>
+</html>

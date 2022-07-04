@@ -1,0 +1,135 @@
+[ {
+  "id" : "64d15210-de54-49c2-be6c-a223d623aa38",
+  "name" : "Java meetas",
+  "description" : "Jono Java meetas",
+  "startDate" : "2022-05-09",
+  "ResponsiblePerson" : {
+    "id" : "1a3fab60-ba56-4d06-8ae1-bff389c85be8",
+    "name" : "Petras",
+    "surname" : "Petras",
+    "email" : "Petras@gmail.com",
+    "password" : "$2a$10$dEYoFYVgVgFWJ5TIs4ohYu0Hip09B.8rodbpsjxtLuRJGS/4Mtsma"
+  },
+  "category" : {
+    "id" : 2,
+    "name" : "Hub"
+  },
+  "type" : {
+    "id" : 2,
+    "name" : "InPerson"
+  },
+  "endDate" : "2022-07-06",
+  "attendees" : [ {
+    "id" : "1a3fab60-ba56-4d06-8ae1-bff389c85be8",
+    "name" : "Petras",
+    "surname" : "Petras",
+    "email" : "Petras@gmail.com",
+    "password" : "$2a$10$dEYoFYVgVgFWJ5TIs4ohYu0Hip09B.8rodbpsjxtLuRJGS/4Mtsma"
+  }, {
+    "id" : "dcd66271-93b6-455e-bd5b-dc4bcb742ebd",
+    "name" : "Jonas",
+    "surname" : "Jonas",
+    "email" : "Jonas@gmail.com",
+    "password" : "$2a$10$DFQdqB4hCB5nZ.mjlpBRkuWy.PFTA.WTbqgQpLcyUJUa6XVemfsXS"
+  } ],
+  "attendeeCount" : 2
+}, {
+  "id" : "af52c4d7-8e2d-4680-9653-8a49be96631e",
+  "name" : "Susitikimas nr. 3",
+  "description" : "Susitikimas",
+  "startDate" : "2022-04-03",
+  "ResponsiblePerson" : {
+    "id" : "1a3fab60-ba56-4d06-8ae1-bff389c85be8",
+    "name" : "Petras",
+    "surname" : "Petras",
+    "email" : "Petras@gmail.com",
+    "password" : "$2a$10$dEYoFYVgVgFWJ5TIs4ohYu0Hip09B.8rodbpsjxtLuRJGS/4Mtsma"
+  },
+  "category" : {
+    "id" : 1,
+    "name" : "CodeMonkey"
+  },
+  "type" : {
+    "id" : 1,
+    "name" : "Live"
+  },
+  "endDate" : "2022-04-06",
+  "attendees" : [ {
+    "id" : "1a3fab60-ba56-4d06-8ae1-bff389c85be8",
+    "name" : "Petras",
+    "surname" : "Petras",
+    "email" : "Petras@gmail.com",
+    "password" : "$2a$10$dEYoFYVgVgFWJ5TIs4ohYu0Hip09B.8rodbpsjxtLuRJGS/4Mtsma"
+  } ],
+  "attendeeCount" : 1
+}, {
+  "id" : "13584a21-ea5a-4bd3-b0c4-f6e38a2f2970",
+  "name" : "Susitikimas nr. 4",
+  "description" : "Susitikimas",
+  "startDate" : "2022-06-01",
+  "ResponsiblePerson" : {
+    "id" : "1a3fab60-ba56-4d06-8ae1-bff389c85be8",
+    "name" : "Petras",
+    "surname" : "Petras",
+    "email" : "Petras@gmail.com",
+    "password" : "$2a$10$dEYoFYVgVgFWJ5TIs4ohYu0Hip09B.8rodbpsjxtLuRJGS/4Mtsma"
+  },
+  "category" : {
+    "id" : 1,
+    "name" : "CodeMonkey"
+  },
+  "type" : {
+    "id" : 1,
+    "name" : "Live"
+  },
+  "endDate" : "2022-07-01",
+  "attendees" : [ {
+    "id" : "1a3fab60-ba56-4d06-8ae1-bff389c85be8",
+    "name" : "Petras",
+    "surname" : "Petras",
+    "email" : "Petras@gmail.com",
+    "password" : "$2a$10$dEYoFYVgVgFWJ5TIs4ohYu0Hip09B.8rodbpsjxtLuRJGS/4Mtsma"
+  }, {
+    "id" : "dcd66271-93b6-455e-bd5b-dc4bcb742ebd",
+    "name" : "Jonas",
+    "surname" : "Jonas",
+    "email" : "Jonas@gmail.com",
+    "password" : "$2a$10$DFQdqB4hCB5nZ.mjlpBRkuWy.PFTA.WTbqgQpLcyUJUa6XVemfsXS"
+  } ],
+  "attendeeCount" : 2
+}, {
+  "id" : "f3277ed0-d65c-46ec-8ded-f1df6b49076c",
+  "name" : "Jono meetas",
+  "description" : "Susitikimas",
+  "startDate" : "2022-06-12",
+  "ResponsiblePerson" : {
+    "id" : "dcd66271-93b6-455e-bd5b-dc4bcb742ebd",
+    "name" : "Jonas",
+    "surname" : "Jonas",
+    "email" : "Jonas@gmail.com",
+    "password" : "$2a$10$DFQdqB4hCB5nZ.mjlpBRkuWy.PFTA.WTbqgQpLcyUJUa6XVemfsXS"
+  },
+  "category" : {
+    "id" : 1,
+    "name" : "CodeMonkey"
+  },
+  "type" : {
+    "id" : 1,
+    "name" : "Live"
+  },
+  "endDate" : "2022-06-18",
+  "attendees" : [ {
+    "id" : "dcd66271-93b6-455e-bd5b-dc4bcb742ebd",
+    "name" : "Jonas",
+    "surname" : "Jonas",
+    "email" : "Jonas@gmail.com",
+    "password" : "$2a$10$DFQdqB4hCB5nZ.mjlpBRkuWy.PFTA.WTbqgQpLcyUJUa6XVemfsXS"
+  }, {
+    "id" : "1a3fab60-ba56-4d06-8ae1-bff389c85be8",
+    "name" : "Petras",
+    "surname" : "Petras",
+    "email" : "Petras@gmail.com",
+    "password" : "$2a$10$dEYoFYVgVgFWJ5TIs4ohYu0Hip09B.8rodbpsjxtLuRJGS/4Mtsma"
+  } ],
+  "attendeeCount" : 2
+} ]

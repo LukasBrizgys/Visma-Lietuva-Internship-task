@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Visma lietuva Praktikos užduotis</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link type="text/css" rel="stylesheet" href="/css/main.css">
+		<meta th:name="_csrf" th:content="${_csrf.token}"/>
+		<meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+	</head>
+	<body onload="fetchMeetings()">
+		<div th:insert="fragments/navigation.html :: nav"></div>
+		<div class="main-container">
+			<div class="filter-container">
+				<form onsubmit="fetchMeetings()" method="GET">
+					<div class="filter-input-container">
+						<label for="description-filter">Pagal aprašymą</label>
+						<input class="filter-input filter-text" id="description-filter" name="description" type="text">
+					</div>
+					<div class="filter-input-container">
+						<label for="responsible-filter">Pagal atsakingą žmogų</label>
+						<select class="filter-input filter-select" id="responsible-filter" name="personID">
+							<option value="">...</option>
+							<option th:each="responsible : ${responsibles}") th:value="${responsible.id}" th:text="${responsible.name} + ' ' + ${responsible.surname}">
+						</select>
+					</div>
+					<div class="filter-input-container">
+						<label for="category-filter">Pagal kategoriją</label>
+						<select class="filter-input filter-select" id="category-filter" name="categoryID">
+							<option value="">...</option>
+							<option th:each="category : ${categories}") th:value="${category.id}" th:text="${category.name}">
+						</select>
+					</div>
+					<div class="filter-input-container">
+						<label for="type-filter">Pagal tipą</label>
+						<select class="filter-input" id="type-filter" name="typeID">
+							<option value="">...</option>
+							<option th:each="type : ${types}") th:value="${type.id}" th:text="${type.name}">
+						</select>
+					</div>
+					<div class="filter-input-container">
+						<label for="startDate-filter">Pagal pradžios datą</label>
+						<input class="filter-input" id="startDate-filter" placeholder="YYYY-MM-dd" name="startDate" type="text">
+					</div>
+					<div class="filter-input-container">
+						<label for="endDate-filter">Pagal pabaigos datą</label>
+						<input class="filter-input" id="endDate-filter" placeholder="YYYY-MM-dd" name="endDate" type="text">
+					</div>
+					<div class="filter-input-container">
+						<label for="endDate-filter">Pagal dalyvaujančių skaičių</label>
+						<input class="filter-input" min="0"  id="endDate-filter" name="attendees" type="number">
+					</div>
+					<button class="filter-button" type="submit">Filtruoti</button>
+				</form>
+			</div>
+			<div class="meetings-container">
+				<div class="meeting-actions">
+					<a href="/meetingNew">Pridėti susitikimą</a>
+					<a href="/newPersonMeeting">Pridėti žmogų prie susitikimo</a>
+				</div>
+				<table style="width:100%" id="meeting-table" class="meeting-table">
+				<thead>
+					<tr>
+						<th>Pavadinimas</th>
+						<th>Aprašymas</th>
+						<th>Atsakingas asmuo</th>
+						<th>Kategorija</th>
+						<th>Tipas</th>
+						<th>Pradžios data</th>
+						<th>Pabaigos data</th>
+						<th>Dalyvaujančių skaičius</th>
+						<th>Veiksmai<th>
+					</tr>
+				</thead>
+				<tbody id="meeting-table-body">
+				</tbody>
+				</table>
+			</div>
+			
+		</div>
+		<script>
+		const clearRows = () => {
+			const elements = document.getElementsByClassName('meeting-table-row');
+			if(elements){
+					while(elements.length > 0) {
+					elements[0].parentNode.removeChild(elements[0]);
+				}
+			}
+		}
+		const show = (data) => {
+ 				clearRows();
+				const tableBody = document.getElementById('meeting-table-body');
+					data.map((meeting, i) => {
+						const deleteButton = document.createElement('button');
+						deleteButton.setAttribute('class', 'delete-button');
+						deleteButton.setAttribute('onclick', `deleteMeeting('${meeting.id}')`);
+						deleteButton.innerHTML = "ištrinti susitikimą";
+						const checkAttendeesButton = document.createElement('a');
+						checkAttendeesButton.setAttribute('class', 'check-button');
+						checkAttendeesButton.setAttribute('href', `/meeting/${meeting.id}/`);
+						checkAttendeesButton.innerHTML = "Peržiūrėti dalyvius";
+						const row = tableBody.insertRow(i);
+						row.classList.add('meeting-table-row');
+						const cell1 = row.insertCell(0);
+						const cell2 = row.insertCell(1);
+						const cell3 = row.insertCell(2);
+						const cell4 = row.insertCell(3);
+						const cell5 = row.insertCell(4);
+						const cell6 = row.insertCell(5);
+						const cell7 = row.insertCell(6);
+						const cell8 = row.insertCell(7)
+						const cell9 = row.insertCell(8);
+						cell1.innerHTML = `${meeting.name}`
+						cell2.innerHTML = `${meeting.description}`
+						cell3.innerHTML = `${meeting.ResponsiblePerson.name} ${meeting.ResponsiblePerson.surname}`;
+						cell4.innerHTML = `${meeting.category.name}`;
+						cell5.innerHTML = `${meeting.type.name}`;
+						cell6.innerHTML = `${meeting.startDate}`;
+						cell7.innerHTML = `${meeting.endDate}`;
+						cell8.innerHTML = `${meeting.attendeeCount}`;
+						cell9.appendChild(checkAttendeesButton);
+						cell9.appendChild(deleteButton);
+				})
+			}
+		const fetchMeetings = async() => {
+				try{
+					if(event) event.preventDefault();
+					
+				const formElements = document.querySelectorAll(".filter-input");
+				const urlParams = new URLSearchParams();
+				[...formElements].map((element) => {
+					if(element.value) urlParams.append(element.name, element.value);
+				})
+				const response = await fetch('/api/meetings?' + urlParams);
+				if(response.status == 200) {
+					const data = await response.json();
+					show(data);
+				}
+				
+				
+				
+				}catch(error){
+					console.log(error);
+				}
+				
+			}
+		const deleteMeeting = async(id, csrf) => {
+			const elementToken = document.querySelector('meta[name="_csrf"]');
+			const token = elementToken && elementToken.getAttribute("content");
+			const elementHeader = document.querySelector('meta[name="_csrf_header"]');
+			const header = elementHeader && elementHeader.getAttribute("content");
+			try{
+				const headers = new Headers();
+				headers.append(header, token);
+				const response = await fetch(`/api/deleteMeeting/${id}`,{
+					method:'DELETE',
+					headers: headers
+				});
+				fetchMeetings();
+			}catch(error) {
+				console.log(error);
+			}
+			
+		}
+		
+ 		
+			
+			
+		
+		</script>
+	</body>
+</html>

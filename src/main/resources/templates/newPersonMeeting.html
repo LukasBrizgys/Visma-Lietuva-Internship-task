@@ -1,0 +1,47 @@
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Naujas susitikimo asmuo</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link type="text/css" rel="stylesheet" href="/css/main.css">
+	</head>
+	<body>
+		<form onsubmit="handleSubmit()" class="person-meeting-form" method="POST">
+			<input type="hidden" class="person-meeting-input hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+			<div class="person-meeting-input-container">
+				<select class="person-meeting-input person-meeting-select" name="personID">
+					<option th:each="person : ${persons}" th:value="${person.id}" th:text="${person.name} + ' ' + ${person.surname}">
+				</select>
+			</div>
+			<div class="person-meeting-input-container">
+				<select class="person-meeting-input person-meeting-select" name="meetingID">
+					<option th:each="meeting : ${meetings}" th:value="${meeting.id}" th:text="${meeting.name} + ' ' + ${meeting.startDate} + '-' + ${meeting.endDate}">
+				</select>
+			</div>
+			<div class="person-meeting-input-container">
+			</div>
+			<button class="person-meeting-submit-button" type="submit">Pridėti</button>
+		</form>
+		<script>
+			const handleSubmit = async() => {
+				event.preventDefault();
+				try{
+					const form = document.getElementById('person-meeting-form');
+					const formData = new FormData();
+					const inputElements = document.querySelectorAll('.person-meeting-input');
+					[...inputElements].forEach((element) => {
+						formData.append(element.name, element.value);
+					})
+					const response = await fetch(`/api/addAttendee/${Date.now()}/${formData.get('meetingID')}`, {
+						method: 'PUT',
+						body: formData
+					})
+					const data = await response.json();
+				}catch(error){
+					console.log(error);
+				}
+			}
+		</script>
+	</body>
+</html>
